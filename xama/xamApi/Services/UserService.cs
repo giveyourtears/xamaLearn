@@ -12,6 +12,7 @@ namespace xamApi.Services
     UserModel Create(UserModel user, string password);
     UserModel GetById(int id);
     void Delete(int id);
+    void UpdateUser(UserModel user, string password = null);
   }
   public class UserService : IUserService
   {
@@ -51,7 +52,7 @@ namespace xamApi.Services
       if (password == null) throw new ArgumentNullException("password");
       if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
 
-      using (HMACSHA512 hmac = new HMACSHA512())
+      using (var hmac = new HMACSHA512())
       {
         passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         passwordSalt = hmac.Key;
@@ -60,7 +61,7 @@ namespace xamApi.Services
 
     public void Delete(int id)
     {
-      UserModel user = _context.Users.Find(id);
+      var user = _context.Users.Find(id);
       if (user == null) return;
       _context.Users.Remove(user);
       _context.SaveChanges();
@@ -69,6 +70,39 @@ namespace xamApi.Services
     public UserModel GetById(int id)
     {
       return _context.Users.Find(id);
+    }
+
+    public void UpdateUser(UserModel userlModel, string password = null)
+    {
+      var user = _context.Users.Find(userlModel.Id);
+
+      if (user == null) throw new Exception("User not found");
+
+      if (!string.IsNullOrWhiteSpace(userlModel.Username) && userlModel.Username != user.Username)
+      {
+        if (_context.Users.Any(x => x.Username == userlModel.Username))
+          throw new Exception("Username " + userlModel.Username + " is already taken");
+
+        user.Username = userlModel.Username;
+      }
+
+      if (!string.IsNullOrWhiteSpace(userlModel.FirstName))
+        user.FirstName = userlModel.FirstName;
+
+      if (!string.IsNullOrWhiteSpace(userlModel.LastName))
+        user.LastName = userlModel.LastName;
+
+      if (!string.IsNullOrWhiteSpace(password))
+      {
+        byte[] passwordHash, passwordSalt;
+        CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+        user.PasswordHash = passwordHash;
+        user.PasswordSalt = passwordSalt;
+      }
+
+      _context.Users.Update(user);
+      _context.SaveChanges();
     }
   }
 }
