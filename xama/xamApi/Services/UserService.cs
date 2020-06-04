@@ -11,6 +11,8 @@ namespace xamApi.Services
   public interface IUserService
   {
     UserModel Create(UserModel user, string password);
+    UserModel GetById(int id);
+    void Delete(int id);
   }
   public class UserService : IUserService
   {
@@ -55,6 +57,19 @@ namespace xamApi.Services
         passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         passwordSalt = hmac.Key;
       }
+    }
+
+    public void Delete(int id)
+    {
+      UserModel user = _context.Users.Find(id);
+      if (user == null) return;
+      _context.Users.Remove(user);
+      _context.SaveChanges();
+    }
+
+    public UserModel GetById(int id)
+    {
+      return _context.Users.Find(id);
     }
   }
 }

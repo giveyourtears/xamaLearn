@@ -44,5 +44,27 @@ namespace xamApi.Controllers
           return BadRequest("Error in " + ex.Message);
         }
       }
+
+      [HttpGet("{id}")]
+      public IActionResult GetById(int id)
+      {
+        UserModel user = _userService.GetById(id);
+        User model = _mapper.Map<User>(user);
+        return Ok(model);
+      }
+
+      [HttpDelete("{id}")]
+      public IActionResult Delete(int id)
+      {
+        try
+        {
+          _userService.Delete(id);
+          return Ok();
+        }
+        catch (Exception ex)
+        {
+          return BadRequest("Error in " + ex.Message);
+        }
+      }
     }
 }
