@@ -2,68 +2,72 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using xamApi.Models;
+using Microsoft.EntityFrameworkCore;
+using xamApi.Helpers;
+using xamApi.Services;
+using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 namespace xamApi
 {
   public class Startup
   {
-    public Startup(IConfiguration configuration)
+    private readonly IWebHostEnvironment _env;
+    private readonly IConfiguration _configuration;
+
+    public Startup(IWebHostEnvironment env, IConfiguration configuration)
     {
-      Configuration = configuration;
+      _env = env;
+      _configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
-
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
+    public void OnConfigureServices(IServiceCollection services)
     {
-      string connection = Configuration.GetConnectionString("DefaultConnection");
-      services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
+      services.AddDbContext<DataContext>();
 
-      services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        .AddCookie(options => //CookieAuthenticationOptions
-        {
-          options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-        });
+      services.AddCors();
       services.AddControllers();
+      services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+      var appSettingsSection = _configuration.GetSection("AppSettings");
+      services.Configure<SecretSettings>(appSettingsSection);
+
+      // jwt
+      var appSettings = appSettingsSection.Get<SecretSettings>();
+      var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+      services.AddAuthentication(x =>
+      {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      });
+        
+      // dependency injection
+      services.AddScoped<IUserService, UserService>();
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void OnConfigure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
     {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-
-      app.UseHttpsRedirection();
-
-      app.UseStaticFiles();
+      dataContext.Database.Migrate();
 
       app.UseRouting();
 
-      app.UseAuthorization();
+      app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 
       app.UseAuthentication();
       app.UseAuthorization();
 
-      app.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}");
-      });
+      app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
   }
 }
