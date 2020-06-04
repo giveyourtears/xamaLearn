@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using xamApi.Helpers;
+using xamApi.Models;
 using xamApi.Services;
 
 namespace xamApi.Controllers
@@ -26,6 +27,22 @@ namespace xamApi.Controllers
         _userService = userService;
         _mapper = mapper;
         _appSecretSettings = secretSettings.Value;
+      }
+  
+      [HttpPost("register")]
+      public IActionResult Register([FromBody] RegisterModel model)
+      {
+        UserModel user = _mapper.Map<UserModel>(model);
+
+        try
+        {
+          _userService.Create(user, model.Password);
+          return Ok();
+        }
+        catch (Exception ex)
+        {
+          return BadRequest("Error in " + ex.Message);
+        }
       }
     }
 }
