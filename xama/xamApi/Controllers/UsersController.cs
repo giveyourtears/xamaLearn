@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using xamApi.Helpers;
@@ -32,7 +28,7 @@ namespace xamApi.Controllers
       [HttpPost("register")]
       public IActionResult Register([FromBody] RegisterModel model)
       {
-        UserModel user = _mapper.Map<UserModel>(model);
+      var user = _mapper.Map<UserModel>(model);
 
         try
         {
@@ -48,8 +44,8 @@ namespace xamApi.Controllers
       [HttpGet("{id}")]
       public IActionResult GetById(int id)
       {
-        UserModel user = _userService.GetById(id);
-        User model = _mapper.Map<User>(user);
+        var user = _userService.GetById(id);
+        var model = _mapper.Map<User>(user);
         return Ok(model);
       }
 

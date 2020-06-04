@@ -1,20 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using xamApi.Helpers;
 using xamApi.Services;
 using AutoMapper;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 
 namespace xamApi
 {
@@ -29,7 +23,7 @@ namespace xamApi
       _configuration = configuration;
     }
 
-    public void OnConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<DataContext>();
 
@@ -53,7 +47,7 @@ namespace xamApi
       services.AddScoped<IUserService, UserService>();
     }
 
-    public void OnConfigure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
     {
       dataContext.Database.Migrate();
 

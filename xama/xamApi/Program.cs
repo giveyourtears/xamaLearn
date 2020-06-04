@@ -7,10 +7,10 @@ namespace xamApi
   {
     public static void Main(string[] args)
     {
-      OnCreateHostBuilder(args).Build().Run();
+      CreateHostBuilder(args).Build().Run();
     }
 
-    public static IHostBuilder OnCreateHostBuilder(string[] args) =>
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
