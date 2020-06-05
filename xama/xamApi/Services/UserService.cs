@@ -9,6 +9,7 @@ namespace xamApi.Services
 {
     public interface IUserService
     {
+        UserModel LoginUser(string username, string password);
         UserModel Create(UserModel user, string password);
         UserModel GetById(int id);
         void Delete(int id);
@@ -26,6 +27,24 @@ namespace xamApi.Services
         public IEnumerable<UserModel> GetAll()
         {
             return _context.Users;
+        }
+
+        public UserModel LoginUser(string username, string password)
+        {
+          if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            return null;
+
+          var user = _context.Users.SingleOrDefault(x => x.Username == username);
+
+          // check if username exists
+          if (user == null)
+            return null;
+
+          // check if password is correct
+          if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            return null;
+
+          return user;
         }
 
         public UserModel Create(UserModel user, string password)
@@ -59,7 +78,26 @@ namespace xamApi.Services
             }
         }
 
-        public void Delete(int id)
+        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
+        {
+          if (password == null) throw new ArgumentNullException("Password can't be empty or equal to null");
+          if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Password cannot be empty or whitespace only string.", "password");
+          if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
+          if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
+
+          using (var hmac = new HMACSHA512(storedSalt))
+          {
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+              if (computedHash[i] != storedHash[i]) return false;
+            }
+          }
+
+          return true;
+        }
+
+    public void Delete(int id)
         {
             var user = _context.Users.Find(id);
             if (user == null) return;
