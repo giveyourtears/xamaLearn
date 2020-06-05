@@ -42,7 +42,7 @@ namespace xamApi.Controllers
       var key = Encoding.ASCII.GetBytes(_appSecretSettings.Secret);
       var tokenDescriptor = new SecurityTokenDescriptor
       {
-        Subject = new ClaimsIdentity(new Claim[]
+        Subject = new ClaimsIdentity(new[]
         {
               new Claim(ClaimTypes.Name, user.Id.ToString())
         }),
@@ -54,10 +54,10 @@ namespace xamApi.Controllers
       var tokenString = tokenHandler.WriteToken(token);
       return Ok(new
       {
-        Id = user.Id,
-        Username = user.Username,
-        FirstName = user.FirstName,
-        LastName = user.LastName,
+        user.Id,
+        user.Username,
+        user.FirstName,
+        user.LastName,
         Token = tokenString
       });
     }
