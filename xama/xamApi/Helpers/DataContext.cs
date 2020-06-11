@@ -4,21 +4,21 @@ using xamApi.Models;
 
 namespace xamApi.Helpers
 {
-    public class DataContext : DbContext
+  public class DataContext : DbContext
+  {
+    private readonly IConfiguration _configuration;
+
+    public DataContext(IConfiguration configuration)
     {
-        protected readonly IConfiguration Configuration;
-
-        public DataContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            // connect to sql server database
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-        }
-
-        public DbSet<UserModel> Users { get; set; }
+      _configuration = configuration;
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+      // connect to sql server database
+      options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+    }
+
+    public DbSet<UserModel> Users { get; set; }
+  }
 }

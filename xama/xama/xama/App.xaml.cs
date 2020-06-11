@@ -1,4 +1,6 @@
-﻿namespace xama
+﻿using xama.Views;
+
+namespace xama
 {
   public partial class App
   {
@@ -6,7 +8,7 @@
     {
       InitializeComponent();
 
-      MainPage = new MainPage();
+      MainPage = new RegistrationPage();
     }
 
     protected override void OnStart()
