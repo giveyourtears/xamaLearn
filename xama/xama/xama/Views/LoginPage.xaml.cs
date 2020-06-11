@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace xama.Views
@@ -14,7 +13,7 @@ namespace xama.Views
 
     async void Signup(object sender, EventArgs e)
     {
-      await Navigation.PushAsync(new NavigationPage(new RegistrationPage()));
+      await Navigation.PushAsync(new RegistrationPage());
     }
 
     void Login(object sender, EventArgs e)
