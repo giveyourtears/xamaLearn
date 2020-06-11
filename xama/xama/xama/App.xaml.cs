@@ -1,4 +1,5 @@
 ﻿using xama.Views;
+using Xamarin.Forms;
 
 namespace xama
 {
@@ -8,7 +9,7 @@ namespace xama
     {
       InitializeComponent();
 
-      MainPage = new RegistrationPage();
+      MainPage = new NavigationPage(new LoginPage());
     }
 
     protected override void OnStart()

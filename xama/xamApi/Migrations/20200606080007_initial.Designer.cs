@@ -11,7 +11,7 @@ namespace xamApi.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20200606080007_initial")]
-    partial class initial
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
