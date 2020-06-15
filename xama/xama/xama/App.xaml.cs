@@ -1,4 +1,7 @@
-﻿namespace xama
+﻿using xama.Views;
+using Xamarin.Forms;
+
+namespace xama
 {
   public partial class App
   {
@@ -6,7 +9,7 @@
     {
       InitializeComponent();
 
-      MainPage = new MainPage();
+      MainPage = new NavigationPage(new LoginPage());
     }
 
     protected override void OnStart()
