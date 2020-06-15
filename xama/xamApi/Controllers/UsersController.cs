@@ -14,7 +14,7 @@ using xamApi.Services;
 namespace xamApi.Controllers
 {
   [Authorize]
-  [Route("api/[controller]")]
+  [Route("[controller]")]
   [ApiController]
   public class UsersController : ControllerBase
   {
@@ -62,13 +62,13 @@ namespace xamApi.Controllers
       });
     }
 
+    [AllowAnonymous]
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterModel model)
     {
-      var user = _mapper.Map<UserModel>(model);
-
       try
       {
+        var user = _mapper.Map<UserModel>(model);
         _userService.Create(user, model.Password);
         return Ok();
       }
