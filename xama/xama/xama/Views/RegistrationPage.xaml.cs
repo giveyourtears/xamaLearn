@@ -1,4 +1,4 @@
-﻿using System;
+﻿using xama.ViewsModels;
 using Xamarin.Forms.Xaml;
 
 namespace xama.Views
@@ -9,11 +9,7 @@ namespace xama.Views
     public RegistrationPage()
     {
       InitializeComponent();
-    }
-
-    private void Register(object sender, EventArgs e)
-    {
-      throw new NotImplementedException();
+      BindingContext = new RegisterView();
     }
   }
 }
