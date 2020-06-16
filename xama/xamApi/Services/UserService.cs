@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using xamApi.Helpers;
-using xamApi.Models;
 
 namespace xamApi.Services
 {

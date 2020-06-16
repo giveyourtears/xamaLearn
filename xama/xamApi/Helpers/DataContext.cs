@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using xamApi.Models;
 
 namespace xamApi.Helpers
 {

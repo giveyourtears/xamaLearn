@@ -1,15 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace xamApi.Models
+namespace xamaLibrary
 {
-  public class RegisterModel
+  public class AuthenticateModel
   {
-    [Required]
-    public string FirstName { get; set; }
-
-    [Required]
-    public string LastName { get; set; }
-
     [Required]
     public string Username { get; set; }
 
