@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using xamApi.Models;
+=======
+﻿using AutoMapper;
+using xamaLibrary;
+>>>>>>> Stashed changes
 
 namespace xamApi.Helpers
 {
