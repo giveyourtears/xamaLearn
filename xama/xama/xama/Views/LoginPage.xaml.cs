@@ -1,4 +1,5 @@
 ﻿using System;
+using xama.ViewsModels;
 using Xamarin.Forms.Xaml;
 
 namespace xama.Views
@@ -9,9 +10,10 @@ namespace xama.Views
     public LoginPage()
     {
       InitializeComponent();
+      BindingContext = new LoginView();
     }
 
-    async void Signup(object sender, EventArgs e)
+    public async void Signup(object sender, EventArgs e)
     {
       await Navigation.PushAsync(new RegistrationPage());
     }

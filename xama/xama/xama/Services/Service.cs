@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -9,6 +11,30 @@ namespace xama.Services
 {
   class Service
   {
+    public async Task Login(string username, string password)
+    {
+      try
+      {
+        var regModel = new RegisterModel()
+        {
+          Username = username,
+          Password = password,
+        };
+        var json = JsonConvert.SerializeObject(regModel);
+
+        HttpContent content = new StringContent(json);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        var clientHtpp = new HttpClient();
+        await clientHtpp.PostAsync("http://10.0.2.2:5000/users/login", content);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex);
+      }
+      
+    }
+
     public async Task<bool> Register(string firstName, string lastName, string username, string password)
     {
       try
