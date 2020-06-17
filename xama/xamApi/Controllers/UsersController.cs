@@ -7,7 +7,6 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using xamaLibrary;
 using xamApi.Helpers;
 using xamApi.Models;
 using xamApi.Services;
