@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace xama.Services
 {
   class Service
   {
-    public async Task Login(string username, string password)
+    public async Task<User> Login(string username, string password)
     {
       try
       {
@@ -26,13 +27,15 @@ namespace xama.Services
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
         var clientHtpp = new HttpClient();
-        await clientHtpp.PostAsync("http://10.0.2.2:5000/users/login", content);
+        var httpResponse = await clientHtpp.PostAsync("http://10.0.2.2:5000/users/login", content);
+        var resp = httpResponse.Content.ReadAsStringAsync().Result;
+        return httpResponse.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<User>(resp) : null;
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex);
+        return null;
       }
-      
     }
 
     public async Task<bool> Register(string firstName, string lastName, string username, string password)

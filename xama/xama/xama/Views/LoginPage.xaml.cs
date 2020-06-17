@@ -13,14 +13,9 @@ namespace xama.Views
       BindingContext = new LoginView();
     }
 
-    public async void Signup(object sender, EventArgs e)
+    private async void Signup(object sender, EventArgs e)
     {
       await Navigation.PushAsync(new RegistrationPage());
-    }
-
-    void Login(object sender, EventArgs e)
-    {
-      Console.WriteLine("Login");
     }
   }
 }

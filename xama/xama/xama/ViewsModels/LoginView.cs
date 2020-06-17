@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using xama.Services;
+using xama.Views;
 using Xamarin.Forms;
 
 namespace xama.ViewsModels
@@ -17,7 +18,11 @@ namespace xama.ViewsModels
       {
         return new Command(async () =>
         {
-          await service.Login(Username, Password);
+          var login = await service.Login(Username, Password);
+          if (login != null)
+          {
+            Application.Current.MainPage = new HomePage();
+          }
         });
       }
     }

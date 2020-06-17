@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using xama.Services;
+using xama.Views;
 using Xamarin.Forms;
 
 namespace xama.ViewsModels
@@ -36,6 +37,10 @@ namespace xama.ViewsModels
         {
           var isSuccess = await api.Register(FirstName, LastName, Username, Password);
           Message = isSuccess ? "Registered successfully" : "Retry again";
+          if (isSuccess != null)
+          {
+            Application.Current.MainPage = new LoginPage();
+          }
         });
       }
     }
