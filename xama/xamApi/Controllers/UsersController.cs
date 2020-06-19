@@ -68,9 +68,20 @@ namespace xamApi.Controllers
     {
       try
       {
-        var user = _mapper.Map<UserModel>(model);
+        var user = _mapper.Map<UserModel>(model); 
         _userService.Create(user, model.Password);
-        return Ok();
+        var loginModel = new AuthenticateModel()
+        {
+          Username = model.Username,
+          Password = model.Password
+        };
+        var loginResult = Login(loginModel);
+        if (loginResult != null)
+        {
+          return Ok();
+        }
+
+        return BadRequest("Error");
       }
       catch (Exception ex)
       {
