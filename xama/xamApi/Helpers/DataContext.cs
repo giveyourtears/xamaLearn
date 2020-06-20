@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using xamaLibrary;
 using xamApi.Models;
 
 namespace xamApi.Helpers
@@ -20,5 +21,6 @@ namespace xamApi.Helpers
     }
 
     public DbSet<UserModel> Users { get; set; }
+    public DbSet<FilmModel> Films { get; set; }
   }
 }
