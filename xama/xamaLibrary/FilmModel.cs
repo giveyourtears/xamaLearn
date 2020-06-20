@@ -7,11 +7,11 @@ namespace xamaLibrary
     public class FilmModel
     {
         public int Id { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
-        int Duration { get; set; }
-        string Genre { get; set; }
-        DateTime DatePremier { get; set; }
-        string Starring { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Duration { get; set; }
+        public string Genre { get; set; }
+        public DateTime DatePremier { get; set; }
+        public string Starring { get; set; }
     }
 }
