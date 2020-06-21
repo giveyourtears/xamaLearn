@@ -5,7 +5,7 @@ using xamApi.Services;
 
 namespace xamApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("[controller]")]
   [ApiController]
   public class FilmsController : ControllerBase
   {
@@ -15,7 +15,7 @@ namespace xamApi.Controllers
     {
       _filmService = filmService;
     }
-
+    [HttpPost("add")]
     public IActionResult AddFilm([FromBody] FilmModel film)
     {
       var filmResult = _filmService.AddFilm(film);
@@ -40,7 +40,7 @@ namespace xamApi.Controllers
       return Ok(film);
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     public IActionResult GetAllFilms()
     {
       var films = _filmService.GetAllFilms();
