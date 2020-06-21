@@ -37,9 +37,9 @@ namespace xama.ViewsModels
         {
           var isSuccess = await api.Register(FirstName, LastName, Username, Password);
           Message = isSuccess ? "Registered successfully" : "Retry again";
-          if (isSuccess != null)
+          if (isSuccess)
           {
-            Application.Current.MainPage = new LoginPage();
+            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
           }
         });
       }

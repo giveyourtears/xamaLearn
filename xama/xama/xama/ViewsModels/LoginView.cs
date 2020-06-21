@@ -21,7 +21,7 @@ namespace xama.ViewsModels
           var login = await service.Login(Username, Password);
           if (login != null)
           {
-            Application.Current.MainPage = new HomePage();
+            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
           }
         });
       }
