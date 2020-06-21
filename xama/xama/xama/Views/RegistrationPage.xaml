@@ -36,8 +36,7 @@
             <Button Text="Register" Command="{Binding RegisterAction}"  HorizontalOptions="CenterAndExpand" TextColor="White" BackgroundColor="Blue" WidthRequest="100"/>
           </StackLayout>
         </Grid>
-        <Label Text="{Binding Message}"></Label>
-        </StackLayout>
+      </StackLayout>
       </ScrollView>
     </ContentPage.Content>
 </ContentPage>
