@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using xamaLibrary;
 
 namespace xama.Services
@@ -13,13 +13,20 @@ namespace xama.Services
     {
         private HttpClient _client = new HttpClient();
 
-        public async Task<IEnumerable<FilmModel>> GetFilms()
+        public IList<FilmModel> GetFilms()
         {
             try
             {
-                var response = _client.PostAsync("http://10.0.2.2:5000/films/getall", null).Result;
-                var result = await response.Content.ReadAsStringAsync();
-                return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<List<FilmModel>>(result) : null;
+                IList<FilmModel> data;
+                var response = _client.GetAsync("http://10.0.2.2:5000/films/getall");
+                var resultString = response.GetAwaiter().GetResult();
+                response.Wait();
+                using(HttpContent content = resultString.Content)
+                {
+                    var json = content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<List<FilmModel>>(json.Result);
+                }
+                return resultString.StatusCode == HttpStatusCode.OK ? data.ToList() : null;
             }
             catch(Exception ex)
             {

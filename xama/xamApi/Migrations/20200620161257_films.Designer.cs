@@ -11,7 +11,7 @@ namespace xamApi.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20200620161257_films")]
-    partial class films
+    partial class Films
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

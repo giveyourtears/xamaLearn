@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace xamApi.Migrations
 {
-    public partial class fixfilms : Migration
+    public partial class Fixfilms : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

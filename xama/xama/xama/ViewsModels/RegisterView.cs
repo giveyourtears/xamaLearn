@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using xama.Droid.ToastNotifications;
 using xama.Services;
 using xama.Views;
 using Xamarin.Forms;

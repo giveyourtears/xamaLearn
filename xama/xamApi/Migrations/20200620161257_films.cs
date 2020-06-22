@@ -2,7 +2,7 @@
 
 namespace xamApi.Migrations
 {
-    public partial class films : Migration
+    public partial class Films : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

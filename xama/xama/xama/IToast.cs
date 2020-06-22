@@ -1,4 +1,4 @@
-﻿namespace xama.Droid.ToastNotifications
+﻿namespace xama
 {
   public interface IToast
   {

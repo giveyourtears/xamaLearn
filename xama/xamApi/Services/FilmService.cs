@@ -40,7 +40,7 @@ namespace xamApi.Services
 
     public IEnumerable<FilmModel> GetAllFilms()
     {
-      return _context.Films;
+      return _context.Films.ToList();
     }
 
     public void Delete(int id)

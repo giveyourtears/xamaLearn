@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace xamApi.Models
+namespace xamaLibrary
 {
     public class AuthenticateModel
     {

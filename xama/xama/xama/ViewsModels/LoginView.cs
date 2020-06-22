@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using xama.Droid.ToastNotifications;
 using xama.Services;
 using xama.Views;
 using Xamarin.Forms;

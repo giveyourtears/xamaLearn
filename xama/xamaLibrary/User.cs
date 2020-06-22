@@ -1,4 +1,4 @@
-﻿namespace xamApi.Models
+﻿namespace xamaLibrary
 {
     public class User
     {
