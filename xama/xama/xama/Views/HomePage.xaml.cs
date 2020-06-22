@@ -8,9 +8,10 @@ namespace xama.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage
     {
-        private IList<FilmModel> Films { get; set; }
+         IList<FilmModel> Films { get; set; }
         public HomePage()
         {
+            Films = new List<FilmModel>();
             FilmService service = new FilmService();
             InitializeComponent();
             var data = service.GetFilms();
