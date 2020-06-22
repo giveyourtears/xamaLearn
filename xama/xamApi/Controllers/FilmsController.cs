@@ -61,8 +61,8 @@ namespace xamApi.Controllers
       }
     }
 
-    [HttpPut("{id}")]
-    public void UpdateFilm([FromBody] FilmModel film)
+    [HttpPost]
+    public void UpdateFilm(FilmModel film)
     {
       _filmService.UpdateFilm(film);
     }
