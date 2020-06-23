@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="xama.Views.HomePage">
+             x:Class="xama.Views.HomePage"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <ListView ItemsSource="{Binding Films}" VerticalOptions="FillAndExpand" HasUnevenRows="true">
             <ListView.ItemTemplate>

@@ -10,7 +10,12 @@ namespace xama.ViewsModels
     class FilmsView : BaseViewModel
     {
         private readonly FilmService _filmService = new FilmService();
-
+        string _title = "";
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
         private ObservableCollection<FilmModel> _films;
         public ObservableCollection<FilmModel> Films
         {
@@ -26,6 +31,7 @@ namespace xama.ViewsModels
         //public Command LoadFilmsCommand { get; }
         public FilmsView(Page page)
         {
+            Title = "Movie List";
             Films = new ObservableCollection<FilmModel>();
             var data = _filmService.GetFilms();
             foreach (var film in data)
