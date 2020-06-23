@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="xama.Views.MenuPage"
+             Title="Menu">
+
+  <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource Background}" Padding="0, 50, 0, 0">
+
+    <Image Source="{Binding ProfileImage}" WidthRequest="100" HeightRequest="200"/>
+    <Label Text="{Binding ProfileName}" HorizontalTextAlignment="Center" FontSize="20" />
+
+    <ListView x:Name="ItemsList" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding ItemSelected, Mode=TwoWay}" HasUnevenRows="True" HorizontalOptions="Center">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Label Text="{Binding Title}"/>
+            <Image Source="{Binding ImagePath}"/>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+    <Button Text="Exit" BackgroundColor="{DynamicResource ItemColor}" Command="{Binding CloseAppCommand}" FontSize="24"/>
+  </StackLayout>
+
+</ContentPage>

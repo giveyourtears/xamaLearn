@@ -9,7 +9,7 @@ namespace xama.ViewsModels
 {
   class RegisterView : INotifyPropertyChanged
   {
-    Service api = new Service();
+    readonly Service api = new Service();
     public string Username { get; set; }
     public string Password { get; set; }
     public string FirstName { get; set; }
