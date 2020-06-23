@@ -1,21 +1,48 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using xama.Services;
 using xamaLibrary;
+using Xamarin.Forms;
+using Xamarin.ViewModels.Base;
 
 namespace xama.ViewsModels
 {
-    class FilmsView
+    class FilmsView : BaseViewModel
     {
-        private FilmService _filmService = new FilmService();
+        private readonly FilmService _filmService = new FilmService();
 
-        public IList<FilmModel> GetFilms()
+        private ObservableCollection<FilmModel> _films;
+        public ObservableCollection<FilmModel> Films
         {
-            IList<FilmModel> films = _filmService.GetFilms();
-            if (films == null)
+            get => _films;
+            set
             {
-                return null;
+                if (_films == value)
+                    return;
+                _films = value;
+                OnPropertyChanged();
             }
-            return films;
         }
+        //public Command LoadFilmsCommand { get; }
+        public FilmsView(Page page)
+        {
+            Films = new ObservableCollection<FilmModel>();
+            var data = _filmService.GetFilms();
+            foreach (var film in data)
+            {
+                Films.Add(film);
+            }
+
+        }
+        //public List<FilmModel> GetFilms()
+        //{
+        //    Films = new List<FilmModel>();
+        //    var data = _filmService.GetFilms();
+        //    foreach (var item in data)
+        //    {
+        //        Films.Add(item);
+        //    }
+        //    return Films;
+        //}
     }
 }
