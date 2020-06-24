@@ -18,8 +18,8 @@ namespace xamApi.Controllers
   [ApiController]
   public class UsersController : ControllerBase
   {
-    private readonly IUserService _userService;
-    private readonly IMapper _mapper;
+    private IUserService _userService;
+    private IMapper _mapper;
     private readonly SecretSettings _appSecretSettings;
 
     public UsersController(IUserService userService, IMapper mapper, IOptions<SecretSettings> secretSettings)
