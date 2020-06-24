@@ -39,8 +39,13 @@ namespace xama.ViewsModels
           Message = isSuccess ? "Registered successfully" : "Retry again";
           if (isSuccess)
           {
-            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-            DependencyService.Get<IToast>().Show("Register Successfully");
+              Application.Current.Properties["name"] = FirstName; 
+              DependencyService.Get<IToast>().Show("Register Successfully");
+              Application.Current.MainPage = new MainProjectPage();
+          }
+          else
+          {
+            DependencyService.Get<IToast>().Show("Register Unsuccessfully. Try again!");
           }
         });
       }

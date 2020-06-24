@@ -26,6 +26,10 @@ namespace xama.ViewsModels
             DependencyService.Get<IToast>().Show("Login Successfully");
             Application.Current.MainPage = new MainProjectPage();
           }
+          else
+          {
+              DependencyService.Get<IToast>().Show("Login Unsuccessfully. Check fields");
+          }
         });
       }
     }
