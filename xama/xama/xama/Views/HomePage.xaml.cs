@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using xama.Services;
-using xama.ViewsModels;
-using xamaLibrary;
+﻿using xama.ViewsModels;
 using Xamarin.Forms.Xaml;
 
 namespace xama.Views

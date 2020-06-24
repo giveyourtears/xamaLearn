@@ -13,10 +13,10 @@
                     <ViewCell>
                         <Grid Padding="10">
                             <FlexLayout JustifyContent="SpaceAround">
-                                <Label Grid.RowSpan="2" HeightRequest="60" WidthRequest="60" Text="Temp Image"/>
-                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Name}"/>
-                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Description}"></Label>
-                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Starring}"></Label>
+                                <Label HeightRequest="60" WidthRequest="60" Text="Temp Image"/>
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Description}"></Label>
+                                <Label Text="{Binding Starring}"></Label>
                             </FlexLayout>
                         </Grid>
                     </ViewCell>

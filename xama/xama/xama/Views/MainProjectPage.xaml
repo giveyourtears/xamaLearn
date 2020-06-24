@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:xama.Views;assembly=xama"
+             x:Class="xama.Views.MainProjectPage"
+             Title="MainProjectPage">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" BackgroundColor="AntiqueWhite">
+            <ContentPage.Content>
+                <StackLayout Padding="5, 20, 5, 5">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Image WidthRequest="65" HeightRequest="65" Aspect="AspectFit" Source="xamlogo.png" VerticalOptions="Center"></Image>
+                        <Label Text="User" VerticalOptions="Center"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Image WidthRequest="25" HeightRequest="25" Aspect="AspectFit" Source="film.png"></Image>
+                        <Button Text="My Films"></Button>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Image WidthRequest="25" HeightRequest="25" Aspect="AspectFit" Source="profile.png"></Image>
+                        <Button Text="Profile"></Button>
+                    </StackLayout>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <views:HomePage />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
