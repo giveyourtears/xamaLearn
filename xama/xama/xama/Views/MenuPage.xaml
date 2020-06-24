@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:viewModels="clr-namespace:xama.ViewsModels;assembly=xama"
+             x:Class="xama.Views.MenuPage"
+             Title="Menu"> 
+    <ContentPage.BindingContext>
+        <viewModels:MenuView></viewModels:MenuView>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="5, 20, 5, 5">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Image WidthRequest="65" HeightRequest="65" Aspect="AspectFit" Source="xamlogo.png" VerticalOptions="Center"></Image>
+                <Label Text="{Binding ProfileName}" VerticalOptions="Center"></Label>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Image WidthRequest="25" HeightRequest="25" Aspect="AspectFit" Source="film.png"></Image>
+                <Button Text="My Films"></Button>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Image WidthRequest="25" HeightRequest="25" Aspect="AspectFit" Source="profile.png"></Image>
+                <Button Text="Profile"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

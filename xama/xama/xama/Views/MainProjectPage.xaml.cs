@@ -1,9 +1,7 @@
 ﻿
-using Xamarin.Forms;
-
 namespace xama.Views
 {
-    public partial class MainProjectPage : MasterDetailPage
+    public partial class MainProjectPage
     {
         public MainProjectPage()
         {

@@ -4,12 +4,12 @@ using Xamarin.Forms.Xaml;
 namespace xama.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage
+    public partial class MenuPage
     {
-        public HomePage()
+        public MenuPage()
         {
             InitializeComponent();
-            BindingContext = new FilmsView();
+            BindingContext = new MenuView();
         }
     }
 }

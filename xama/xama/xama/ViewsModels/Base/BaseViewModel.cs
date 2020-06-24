@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Xamarin.ViewModels.Base
+namespace xama.ViewsModels.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
