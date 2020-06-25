@@ -22,7 +22,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <Image WidthRequest="25" HeightRequest="25" Aspect="AspectFit" Source="profile.png"></Image>
-                <Button Text="Profile"></Button>
+                <Button Text="Profile" Clicked="Signup"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

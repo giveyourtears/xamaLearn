@@ -9,7 +9,7 @@ namespace xama.ViewsModels
 {
   class RegisterView : INotifyPropertyChanged
   {
-    Service api = new Service();
+    readonly Service _api = new Service();
     public string Username { get; set; }
     public string Password { get; set; }
     public string FirstName { get; set; }
@@ -34,13 +34,15 @@ namespace xama.ViewsModels
       {
         return new Command(async () =>
         {
-          var isSuccess = await api.Register(FirstName, LastName, Username, Password);
+          var isSuccess = await _api.Register(FirstName, LastName, Username, Password);
           Message = isSuccess ? "Registered successfully" : "Retry again";
           if (isSuccess)
           {
-              Application.Current.Properties["name"] = FirstName; 
-              DependencyService.Get<IToast>().Show("Register Successfully");
-              Application.Current.MainPage = new MainProjectPage();
+            Application.Current.Properties["first_name"] = FirstName;
+            Application.Current.Properties["last_name"] = LastName;
+            Application.Current.Properties["name"] = Username;
+            DependencyService.Get<IToast>().Show("Register Successfully");
+            Application.Current.MainPage = new MainProjectPage();
           }
           else
           {
