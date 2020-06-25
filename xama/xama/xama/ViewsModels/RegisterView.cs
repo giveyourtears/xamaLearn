@@ -17,9 +17,8 @@ namespace xama.ViewsModels
 
     private string _message;
 
-    public string Message
+    private string Message
     {
-      get => _message;
       set
       {
         if (_message == value || value == null)
