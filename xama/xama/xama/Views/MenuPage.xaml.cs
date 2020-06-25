@@ -11,5 +11,5 @@ namespace xama.Views
             InitializeComponent();
             BindingContext = new MenuView();
         }
-    }
+  }
 }

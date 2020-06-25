@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using xama.Services;
+using xama.Views;
 using xama.ViewsModels.Base;
 using xamaLibrary;
+using Xamarin.Forms;
 
 namespace xama.ViewsModels
 {
@@ -26,8 +29,22 @@ namespace xama.ViewsModels
                 OnPropertyChanged();
             }
         }
-        //public Command LoadFilmsCommand { get; }
-        public FilmsView()
+
+        public ICommand Logout
+        {
+          get
+          {
+            return new Command(async () =>
+            {
+                Application.Current.Properties["id"] = null;
+                Application.Current.Properties["name"] = null;
+                DependencyService.Get<IToast>().Show("Logout Successfully");
+                Application.Current.MainPage = new LoginPage();
+            });
+          }
+        }
+    //public Command LoadFilmsCommand { get; }
+    public FilmsView()
         {
             //Title = "Movie List";
             Films = new ObservableCollection<FilmModel>();
