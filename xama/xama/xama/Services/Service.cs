@@ -2,16 +2,16 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using xamaLibrary;
+using Xamarin.Forms;
 
 namespace xama.Services
 {
   class Service
   {
-    public async Task<User> Login(string username, string password)
+    public async Task<UserClient> Login(string username, string password)
     {
       try
       {
@@ -28,7 +28,8 @@ namespace xama.Services
         var clientHtpp = new HttpClient();
         var httpResponse = await clientHtpp.PostAsync("http://10.0.2.2:5000/users/login", content);
         var resp = httpResponse.Content.ReadAsStringAsync().Result;
-        return httpResponse.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<User>(resp) : null;
+        var respJson = JsonConvert.DeserializeObject<UserClient>(resp);
+        return httpResponse.StatusCode == HttpStatusCode.OK ? respJson : null;
       }
       catch (Exception ex)
       {
@@ -64,7 +65,7 @@ namespace xama.Services
       }
     }
 
-    public async Task<bool> Update(string username, string firstname, string lastname)
+    public async Task<bool> Update(int id, string username, string firstname, string lastname)
     {
       try
       {
@@ -78,8 +79,9 @@ namespace xama.Services
         var json = JsonConvert.SerializeObject(updateModel);
 
         HttpContent content = new StringContent(json);
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", (string) Application.Current.Properties["token"]);
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        var response = await httpClient.PutAsync("http://10.0.2.2:5000/users/update", content);
+        var response = await httpClient.PutAsync($"http://10.0.2.2:5000/users/{id}", content);
         return response.IsSuccessStatusCode;
       }
       catch (Exception ex)

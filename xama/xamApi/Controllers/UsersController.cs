@@ -54,14 +54,15 @@ namespace xamApi.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            return Ok(new
+            var userClient = new UserClient()
             {
-                user.Id,
-                user.Username,
-                user.FirstName,
-                user.LastName,
-                Token = tokenString
-            });
+                FirstName = user.FirstName,
+                Username = user.Username,
+                Id = user.Id,
+                Token = tokenString,
+                LastName = user.LastName
+            };
+            return Ok(userClient);
         }
         catch(Exception ex)
         {
@@ -77,7 +78,7 @@ namespace xamApi.Controllers
       try
       {
         var user = _mapper.Map<UserModel>(model); 
-        _userService.Create(user, model.Password);
+        var regUser =  _userService.Create(user, model.Password);
         var loginModel = new AuthenticateModel()
         {
           Username = model.Username,
@@ -86,7 +87,7 @@ namespace xamApi.Controllers
         var loginResult = Login(loginModel);
         if (loginResult != null)
         {
-          return Ok();
+          return Ok(regUser);
         }
 
         return BadRequest("Error");

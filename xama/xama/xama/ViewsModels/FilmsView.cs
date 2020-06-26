@@ -34,10 +34,13 @@ namespace xama.ViewsModels
         {
           get
           {
-            return new Command(async () =>
+            return new Command(() =>
             {
                 Application.Current.Properties["id"] = null;
                 Application.Current.Properties["name"] = null;
+                Application.Current.Properties["token"] = null;
+                Application.Current.Properties["first_name"] = null;
+                Application.Current.Properties["last_name"] = null;
                 DependencyService.Get<IToast>().Show("Logout Successfully");
                 Application.Current.MainPage = new LoginPage();
             });

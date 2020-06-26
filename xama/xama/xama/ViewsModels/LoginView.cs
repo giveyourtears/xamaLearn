@@ -25,6 +25,7 @@ namespace xama.ViewsModels
             Application.Current.Properties["name"] = login.Username;
             Application.Current.Properties["first_name"] = login.FirstName;
             Application.Current.Properties["last_name"] = login.LastName;
+            Application.Current.Properties["token"] = login.Token;
             DependencyService.Get<IToast>().Show("Login Successfully");
             Application.Current.MainPage = new MainProjectPage();
           }
