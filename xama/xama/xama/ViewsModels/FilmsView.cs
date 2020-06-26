@@ -11,14 +11,10 @@ namespace xama.ViewsModels
     class FilmsView : BaseViewModel
     {
         private readonly FilmService _filmService = new FilmService();
-        //string _title = "";
-        //public string Title
-        //{
-        //    get => _title;
-        //    set => SetProperty(ref _title, value);
-        //}
+        private FilmModel _selectedItem;
+        private Page _page;
         private ObservableCollection<FilmModel> _films;
-        public ObservableCollection<FilmModel> Films
+        private ObservableCollection<FilmModel> Films
         {
             get => _films;
             set
@@ -30,24 +26,36 @@ namespace xama.ViewsModels
             }
         }
 
+        //public FilmModel FilmSelected
+        //{
+        //    get => _selectedItem;
+        //    set
+        //    {
+        //        if (_selectedItem == value || value == null)
+        //            return;
+        //        _selectedItem = value;
+        //        OnPropertyChanged();
+        //        _page.Navigation.PushAsync(new FilmViewPage(new OneFilmDetailView(value)));
+        //    }
+        //}
+
         public ICommand Logout
         {
-          get
-          {
-            return new Command(() =>
+            get
             {
-                Application.Current.Properties["id"] = null;
-                Application.Current.Properties["name"] = null;
-                Application.Current.Properties["token"] = null;
-                Application.Current.Properties["first_name"] = null;
-                Application.Current.Properties["last_name"] = null;
-                DependencyService.Get<IToast>().Show("Logout Successfully");
-                Application.Current.MainPage = new LoginPage();
-            });
-          }
+                return new Command(() =>
+                {
+                    Application.Current.Properties["id"] = null;
+                    Application.Current.Properties["name"] = null;
+                    Application.Current.Properties["token"] = null;
+                    Application.Current.Properties["first_name"] = null;
+                    Application.Current.Properties["last_name"] = null;
+                    DependencyService.Get<IToast>().Show("Logout Successfully");
+                    Application.Current.MainPage = new LoginPage();
+                });
+            }
         }
-    //public Command LoadFilmsCommand { get; }
-    public FilmsView()
+        public FilmsView()
         {
             //Title = "Movie List";
             Films = new ObservableCollection<FilmModel>();
@@ -56,17 +64,6 @@ namespace xama.ViewsModels
             {
                 Films.Add(film);
             }
-
         }
-        //public List<FilmModel> GetFilms()
-        //{
-        //    Films = new List<FilmModel>();
-        //    var data = _filmService.GetFilms();
-        //    foreach (var item in data)
-        //    {
-        //        Films.Add(item);
-        //    }
-        //    return Films;
-        //}
     }
 }
