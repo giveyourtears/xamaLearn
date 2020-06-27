@@ -10,15 +10,14 @@
     <ToolbarItem Text="Logout" Command="{Binding Logout}"  IconImageSource="logout.png" />
   </ContentPage.ToolbarItems>
   <ContentPage.Content>
-        <ListView ItemsSource="{Binding Films}" VerticalOptions="FillAndExpand" HasUnevenRows="true">
+    <ListView ItemsSource="{Binding Films}" ItemTapped="OnItemSelected" VerticalOptions="FillAndExpand" HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
                             <FlexLayout JustifyContent="SpaceAround">
-                                <Label HeightRequest="60" WidthRequest="60" Text="Temp Image"/>
+                                <Image HeightRequest="60" WidthRequest="60" Source="batman.jpg"/>
                                 <Label Text="{Binding Name}"/>
-                                <Label Text="{Binding Description}"></Label>
                                 <Label Text="{Binding Starring}"></Label>
                             </FlexLayout>
                         </Grid>
