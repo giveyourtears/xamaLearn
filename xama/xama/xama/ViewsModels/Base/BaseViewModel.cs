@@ -7,12 +7,6 @@ namespace xama.ViewsModels.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        string _title = string.Empty;
-        public string Title
-        {
-            get => _title;
-            set => SetProperty(ref _title, value);
-        }
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)
