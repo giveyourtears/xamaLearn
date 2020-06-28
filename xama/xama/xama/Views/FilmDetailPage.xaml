@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewsModels="clr-namespace:xama.ViewsModels;assembly=xama"
+             mc:Ignorable="d"
+             x:Class="xama.Views.FilmDetailPage">
+  <ContentPage.BindingContext>
+    <viewsModels:FilmDetailView></viewsModels:FilmDetailView>
+  </ContentPage.BindingContext>
+  <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand">
+            <Image HeightRequest="300" WidthRequest="500" Source="batman.jpg"></Image>
+            <Label Text="{Binding Description}" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding Duration}" HorizontalTextAlignment="Center" />
+            <Label Text="{Binding Starring}" HorizontalTextAlignment="Center" />
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

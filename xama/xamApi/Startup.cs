@@ -72,7 +72,8 @@ namespace xamApi
 
             // dependency injection
             services.AddScoped<IUserService, UserService>();
-        }
+            services.AddScoped<IFilmService, FilmService>();
+    }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
         {

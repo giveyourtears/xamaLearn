@@ -4,8 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="xama.Views.LoginPage">
-    <ContentPage.Content>
+             x:Class="xama.Views.LoginPage"
+             xmlns:viewModels="clr-namespace:xama.ViewsModels;assembly=xama">
+  <ContentPage.BindingContext>
+    <viewModels:LoginView></viewModels:LoginView>
+  </ContentPage.BindingContext>
+  <ContentPage.Content>
       <ScrollView>
         <StackLayout>
         <Grid Margin="20, 0, 20, 0" VerticalOptions="CenterAndExpand">
@@ -15,9 +19,9 @@
               <RowDefinition />
               <RowDefinition />
           </Grid.RowDefinitions>
-            <Entry Placeholder="UserName" x:Name="EntryUser" Grid.Row="0"/>
-            <Entry Placeholder="Password" x:Name="EntryPassword" Grid.Row="1"/>
-            <Button Text="Login" Grid.Row="2" BackgroundColor="#0077be" TextColor="White" Clicked="Login"/>
+            <Entry Placeholder="UserName" Text="{Binding Username}"  Grid.Row="0"/>
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True"  Grid.Row="1"/>
+            <Button Text="Login" Command="{Binding Login}" Grid.Row="2" BackgroundColor="#0077be" TextColor="White"/>
             <Button Text="SignUp" Grid.Row="3" Clicked="Signup"/>
         </Grid>
         </StackLayout>

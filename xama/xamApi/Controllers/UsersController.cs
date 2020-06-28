@@ -7,6 +7,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using xamaLibrary;
 using xamApi.Helpers;
 using xamApi.Services;
 
@@ -32,33 +33,42 @@ namespace xamApi.Controllers
     [HttpPost("login")]
     public IActionResult Login([FromBody] AuthenticateModel model)
     {
-      var user = _userService.LoginUser(model.Username, model.Password);
-
-      if (user == null)
-        return BadRequest(new { message = "Username or password is incorrect" });
-
-      var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes(_appSecretSettings.Secret);
-      var tokenDescriptor = new SecurityTokenDescriptor
-      {
-        Subject = new ClaimsIdentity(new[]
+        try
         {
-              new Claim(ClaimTypes.Name, user.Id.ToString())
-        }),
-        Expires = DateTime.UtcNow.AddDays(7),
-        SigningCredentials =
-          new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-      };
-      var token = tokenHandler.CreateToken(tokenDescriptor);
-      var tokenString = tokenHandler.WriteToken(token);
-      return Ok(new
-      {
-        user.Id,
-        user.Username,
-        user.FirstName,
-        user.LastName,
-        Token = tokenString
-      });
+            var user = _userService.LoginUser(model.Username, model.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSecretSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                new Claim(ClaimTypes.Name, user.Id.ToString())
+            }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials =
+                    new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+            var userClient = new UserClient()
+            {
+                FirstName = user.FirstName,
+                Username = user.Username,
+                Id = user.Id,
+                Token = tokenString,
+                LastName = user.LastName
+            };
+            return Ok(userClient);
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("sgsadg" + ex);
+            return null;
+        }
     }
 
     [AllowAnonymous]
@@ -67,9 +77,20 @@ namespace xamApi.Controllers
     {
       try
       {
-        var user = _mapper.Map<UserModel>(model);
-        _userService.Create(user, model.Password);
-        return Ok();
+        var user = _mapper.Map<UserModel>(model); 
+        var regUser =  _userService.Create(user, model.Password);
+        var loginModel = new AuthenticateModel()
+        {
+          Username = model.Username,
+          Password = model.Password
+        };
+        var loginResult = Login(loginModel);
+        if (loginResult != null)
+        {
+          return Ok(regUser);
+        }
+
+        return BadRequest("Error");
       }
       catch (Exception ex)
       {
